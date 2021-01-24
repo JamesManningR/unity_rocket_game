@@ -5,8 +5,10 @@ using UnityEngine;
 public class Rocket : MonoBehaviour
 {
     Rigidbody rigidBody;
-    [SerializeField] float rcsThrust = 250f;
-    [SerializeField] float mainThrust = 40;
+    [SerializeField] float rcsThrust = 50f;
+    [SerializeField] float mainThrust = 10000;
+    [SerializeField] Vector3 centerOfMass = new Vector3(0, -.2f, 0);
+
 
 
     // Start is called before the first frame update
@@ -18,6 +20,7 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        rigidBody.centerOfMass = centerOfMass;
         HandleThrust();
         HandleRotation();
     }
@@ -37,18 +40,13 @@ public class Rocket : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
         {
-            rigidBody.freezeRotation = true;
             rcsDirection += 1f;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            rigidBody.freezeRotation = true;
             rcsDirection -= 1f;
-            print(rcsDirection);
         }
 
-        // transform.Rotate(Vector3.forward * rcsDirection * rotationInFrame);
-
-        rigidBody.freezeRotation = false;
+        rigidBody.angularVelocity += (Vector3.forward * rcsDirection * rotationInFrame);
     }
 }

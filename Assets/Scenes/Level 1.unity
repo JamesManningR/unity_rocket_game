@@ -132,19 +132,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5744818952798143084, guid: 09b21272c8d7b29488fb45297b692922, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.348
+      value: 2.05
       objectReference: {fileID: 0}
     - target: {fileID: 7632896424776890748, guid: 09b21272c8d7b29488fb45297b692922, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.232
+      value: -0.066000104
       objectReference: {fileID: 0}
     - target: {fileID: 7632896425139838553, guid: 09b21272c8d7b29488fb45297b692922, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.232
+      value: -0.066000104
       objectReference: {fileID: 0}
     - target: {fileID: 7632896426020885392, guid: 09b21272c8d7b29488fb45297b692922, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.232
+      value: 0.934
       objectReference: {fileID: 0}
     - target: {fileID: 7632896426020885398, guid: 09b21272c8d7b29488fb45297b692922, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -160,7 +160,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7632896426089854548, guid: 09b21272c8d7b29488fb45297b692922, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.69
+      value: 1.08
       objectReference: {fileID: 0}
     - target: {fileID: 7632896426089854548, guid: 09b21272c8d7b29488fb45297b692922, type: 3}
       propertyPath: m_LocalPosition.z
@@ -218,9 +218,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 834180468}
   serializedVersion: 2
-  m_Mass: 1000000
+  m_Mass: 100
   m_Drag: 0.2
-  m_AngularDrag: 0.05
+  m_AngularDrag: 10
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
@@ -238,8 +238,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54a037bd5f250044ebd0e918a3b23e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rcsThrust: 250
-  mainThrust: 1000000
+  rcsThrust: 40
+  mainThrust: 200
+  centerOfMass: {x: 0, y: 20, z: 0}
 --- !u!1 &1124816080
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,7 +353,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 424849700597608799, guid: 7d5c744975d822743910cbffc59d1f90, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.99
+      value: 1.56
       objectReference: {fileID: 0}
     - target: {fileID: 424849700597608799, guid: 7d5c744975d822743910cbffc59d1f90, type: 3}
       propertyPath: m_LocalPosition.y
@@ -364,31 +365,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 424849700597608799, guid: 7d5c744975d822743910cbffc59d1f90, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9979463
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 424849700597608799, guid: 7d5c744975d822743910cbffc59d1f90, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.02641333
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 424849700597608799, guid: 7d5c744975d822743910cbffc59d1f90, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.05833607
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 424849700597608799, guid: 7d5c744975d822743910cbffc59d1f90, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0015440211
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 424849700597608799, guid: 7d5c744975d822743910cbffc59d1f90, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 3.012
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 424849700597608799, guid: 7d5c744975d822743910cbffc59d1f90, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 6.7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 424849700597608799, guid: 7d5c744975d822743910cbffc59d1f90, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0.354
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d5c744975d822743910cbffc59d1f90, type: 3}
