@@ -25,12 +25,38 @@ public class Rocket : MonoBehaviour
         HandleRotation();
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case "Friendly":
+                print("Ok");
+                break;
+
+            case "Finish":
+                print("Goal");
+                break;
+
+            default:
+                print("Die");
+                break;
+        }
+    }
+
     private void HandleThrust()
     {
+        float thrustDirection = 0f;
+
         if (Input.GetKey(KeyCode.Space))
         {
-            rigidBody.AddRelativeForce(0, mainThrust, 0);
+            thrustDirection++;
         }
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            thrustDirection -= 0.5f;
+        }
+
+        rigidBody.AddRelativeForce(0, thrustDirection * mainThrust, 0);
     }
 
     private void HandleRotation()
@@ -40,11 +66,11 @@ public class Rocket : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
         {
-            rcsDirection += 1f;
+            rcsDirection++;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            rcsDirection -= 1f;
+            rcsDirection--;
         }
 
         rigidBody.angularVelocity += (Vector3.forward * rcsDirection * rotationInFrame);
