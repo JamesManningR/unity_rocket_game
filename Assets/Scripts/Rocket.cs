@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class Rocket : MonoBehaviour
 {
@@ -8,50 +9,60 @@ public class Rocket : MonoBehaviour
     [SerializeField] float mainThrust = 10000;
     [SerializeField] Vector3 centerOfMass = new Vector3(0, -.2f, 0);
 
+    AudioSource audioSource;
+
+    public AudioClip[] deathClips;
+    public AudioClip[] winClips;
+    public AudioClip[] completeClips;
+
     enum State { Alive, Dying, Transcending };
     State state = State.Alive;
 
     // Start is called before the first frame update
     void Start()
     {
+        deathClips = Resources.LoadAll<AudioClip>("Sounds/Death");
+        winClips = Resources.LoadAll<AudioClip>("Sounds/Win");
+        completeClips = Resources.LoadAll<AudioClip>("Sounds/Complete");
+
+        audioSource = GetComponent<AudioSource>();
         rigidBody = GetComponent<Rigidbody>();
+
+        rigidBody.centerOfMass = centerOfMass;
     }
 
     // Update is called once per frame
     void Update()
     {
-        rigidBody.centerOfMass = centerOfMass;
-        switch (state)
-        {
-            case State.Alive:
-                HandleThrust();
-                HandleRotation();
-                HandleRestart();
-                break;
 
-            case State.Dying:
-                rigidBody.AddRelativeForce(0, mainThrust, 0);
-                float rotationInFrame = rcsThrust * Time.deltaTime;
-                rigidBody.angularVelocity += (Vector3.forward);
-                break;
-        }
+        if (state != State.Alive) { return; };
+
+        HandleThrust();
+        HandleRotation();
+        HandleRestart();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (state != State.Alive) { return; };
+
         switch (collision.gameObject.tag)
         {
             case "Friendly":
                 break;
 
             case "Finish":
+                PlayWinSound();
                 state = State.Transcending;
-                LoadNextScene();
+                Invoke("LoadNextScene", 2f);
                 break;
 
             default:
+                PlayDeathSound();
+                rigidBody.freezeRotation = false;
+                rigidBody.mass = 10000000000000000;
                 state = State.Dying;
-                ReloadScene();
+                Invoke("ReloadScene", 2f);
                 break;
         }
     }
@@ -114,5 +125,24 @@ public class Rocket : MonoBehaviour
         {
             SceneManager.LoadScene(0);
         }
+    }
+
+    private void PlayDeathSound()
+    {
+        AudioClip selectedSound = deathClips[Random.Range(0, deathClips.Length)];
+        audioSource.clip = selectedSound;
+        audioSource.Play();
+    }
+    private void PlayWinSound()
+    {
+        AudioClip selectedSound = winClips[Random.Range(0, winClips.Length)];
+        audioSource.clip = selectedSound;
+        audioSource.Play();
+    }
+    private void PlayCompleteSound()
+    {
+        AudioClip selectedSound = completeClips[Random.Range(0, completeClips.Length)];
+        audioSource.clip = selectedSound;
+        audioSource.Play();
     }
 }
