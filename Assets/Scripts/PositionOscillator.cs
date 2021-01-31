@@ -18,12 +18,15 @@ public class PositionOscillator : MonoBehaviour
 
     void Update()
     {
-        // Set movement factor
+        // Make sure period is more than 0
+        if (period <= Mathf.Epsilon) { return; }
+
         float cycles = Time.time / period;
 
         const float tau = Mathf.PI * 2;
-        float rawSineWave = Mathf.Sin(cycles * tau);
+        float rawSinWave = Mathf.Sin(cycles * tau);
 
+        movementFactor = rawSinWave / 2f + .5f;
         Vector3 offset = movementVector * movementFactor;
         transform.position = startingPos + offset;
     }
