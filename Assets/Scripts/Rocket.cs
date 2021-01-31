@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[DisallowMultipleComponent]
 public class Rocket : MonoBehaviour
 {
     [SerializeField] float rcsThrust = 50f;
@@ -12,6 +13,7 @@ public class Rocket : MonoBehaviour
     [SerializeField] AudioClip deathSound;
 
     [SerializeField] ParticleSystem mainEngineParticles;
+    [SerializeField] ParticleSystem reverseEngineParticles;
 
     Rigidbody rigidBody;
     AudioSource audioSource;
@@ -97,27 +99,35 @@ public class Rocket : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space))
         {
+            mainEngineParticles.Play();
             if (!audioSource.isPlaying)
             {
                 audioSource.PlayOneShot(mainEngineSound, 0.7f);
-                mainEngineParticles.Play();
             }
             thrustDirection++; // Add to thrust in forward direction
+        }
+        else
+        {
+            mainEngineParticles.Stop();
         }
 
         if (Input.GetKey(KeyCode.LeftControl))
         {
+            reverseEngineParticles.Play();
             if (!audioSource.isPlaying)
             {
                 audioSource.PlayOneShot(reverseEngineSound, 0.7f);
             }
             thrustDirection -= 0.5f; // Add to thrust in reverse direction
         }
+        else
+        {
+            reverseEngineParticles.Stop();
+        }
 
         if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.Space))
         {
             audioSource.Stop();
-            mainEngineParticles.Stop();
         }
 
         rigidBody.AddRelativeForce(0, thrustDirection * mainThrust, 0); // Apply final thrust direction
