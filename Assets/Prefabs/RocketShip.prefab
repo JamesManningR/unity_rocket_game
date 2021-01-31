@@ -4971,6 +4971,7 @@ MonoBehaviour:
   mainEngineSound: {fileID: 8300000, guid: ac1987dfa14495b438f6603e6452220d, type: 3}
   reverseEngineSound: {fileID: 8300000, guid: 2c0307b66ad421643b854117ed03e34e, type: 3}
   deathSound: {fileID: 0}
+  mainEngineParticles: {fileID: 3600981579464803667}
 --- !u!82 &8745139702528205512
 AudioSource:
   m_ObjectHideFlags: 0

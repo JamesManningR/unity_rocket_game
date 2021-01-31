@@ -6,10 +6,12 @@ public class Rocket : MonoBehaviour
     [SerializeField] float rcsThrust = 50f;
     [SerializeField] float mainThrust = 10000;
     [SerializeField] Vector3 centerOfMass = new Vector3(0, -.2f, 0);
+
     [SerializeField] AudioClip mainEngineSound;
     [SerializeField] AudioClip reverseEngineSound;
     [SerializeField] AudioClip deathSound;
 
+    [SerializeField] ParticleSystem mainEngineParticles;
 
     Rigidbody rigidBody;
     AudioSource audioSource;
@@ -98,6 +100,7 @@ public class Rocket : MonoBehaviour
             if (!audioSource.isPlaying)
             {
                 audioSource.PlayOneShot(mainEngineSound, 0.7f);
+                mainEngineParticles.Play();
             }
             thrustDirection++; // Add to thrust in forward direction
         }
@@ -111,7 +114,11 @@ public class Rocket : MonoBehaviour
             thrustDirection -= 0.5f; // Add to thrust in reverse direction
         }
 
-        if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.Space)) { audioSource.Stop(); }
+        if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.Space))
+        {
+            audioSource.Stop();
+            mainEngineParticles.Stop();
+        }
 
         rigidBody.AddRelativeForce(0, thrustDirection * mainThrust, 0); // Apply final thrust direction
     }
